@@ -31,7 +31,7 @@ app.post('/', function (request,response){
     //         console.log(error);
     //     })
     console.log(`prurl: ${pullRequest.html_url} timestamp: ${pullRequest.created_at}`);
-    helpers.capture()
+    // helpers.capture()
     response.send('thanks');
 })
 
