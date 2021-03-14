@@ -1,17 +1,21 @@
 const express = require('express')
-const axios = require ('axios')
+// const axios = require ('axios')
 const helpers = require('./helpers.js')
-const https = require('https')
+// const https = require('https')
 const Sequelize = require('sequelize')
 const cors = require('cors')
+const path = require('path')
 
 
 const app = express()
-const port = 3030
+const port = process.env.PORT || 5000;
 
+const buildPath = path.join(__dirname, '..', 'build');
+app.use(express.static(buildPath));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors())
+
 
 const sequelize = new Sequelize('mysql://webapp:aviTal92@ec2-3-14-129-145.us-east-2.compute.amazonaws.com/auditech')
 
