@@ -7,7 +7,7 @@ function App() {
 
   const getPR = async function () {
     const request = axios.create({
-      baseURL: 'http://localhost:3030/pullrequests'
+      baseURL: 'https://auditechex.herokuapp.com/pullrequests'
   })
     const tempResult = await request.get()
     const results = tempResult.data
