@@ -47,25 +47,25 @@ let screenshotID = 1
 
 
     app.get('/pullrequests', async function (request, response) {
-    // const result = await getPR()
-    const result = [
-        [
-            {
-                id: 592387136,
-                pr_url: 'https://github.com/Luttennet/testrepo/pull/6',
-                created_time: '2021-03-13T16:20:25Z',
-                screen_shot: './screenshot1.png'
-            }
-        ],
-        [
-            {
-              id: 111111,
-              pr_url: 'https://github.co/il/Luttennet/testrepo/pull/6',
-              created_time: '2021-03-13T324234223425Z',
-              screen_shot: './scresfdsdfsft1.png'
-            }
-        ]
-    ]
+    const result = await getPR()
+    // const result = [
+    //     [
+    //         {
+    //             id: 592387136,
+    //             pr_url: 'https://github.com/Luttennet/testrepo/pull/6',
+    //             created_time: '2021-03-13T16:20:25Z',
+    //             screen_shot: './screenshot1.png'
+    //         }
+    //     ],
+    //     [
+    //         {
+    //           id: 111111,
+    //           pr_url: 'https://github.co/il/Luttennet/testrepo/pull/6',
+    //           created_time: '2021-03-13T324234223425Z',
+    //           screen_shot: './scresfdsdfsft1.png'
+    //         }
+    //     ]
+    // ]
     // console.log (result)
     response.send(result)
 })
