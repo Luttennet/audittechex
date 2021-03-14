@@ -1,40 +1,52 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'; 
 import './App.css';
 
 function App() {
   const [ nests, setNests ] = useState([]);
-  const [ listening, setListening ] = useState(false);
 
-  useEffect( () => {
-    if (!listening) {
-      const events = new EventSource('http://localhost:3000/events');
-      events.onmessage = (event) => {
-        const parsedData = JSON.parse(event.data);
-
-        setNests((nests) => nests.concat(parsedData));
-      };
-
-      setListening(true);
+  const getPR = async function () {
+    const request = axios.create({
+      baseURL: 'http://localhost:3030/pullrequests'
+  })
+    const tempResult = await request.get()
+    const results = tempResult.data
+    return results
+  }
+  
+  useEffect(() => {
+    async function fetchMyAPI() {
+      let mounted = true;
+      await getPR()
+        .then(pr => {
+          if(mounted) {
+            setNests(pr)
+          }
+        })
+      return () => mounted = false;
     }
-  }, [listening, nests]);
+    fetchMyAPI()
+  }, [])
 
   return (
     <table className="stats-table">
       <thead>
         <h1>Pull requests dashboard</h1>
         <tr>
-          <th>TIME STAMP</th>
-          <th>PR URL</th>
-          <th>SNAPSHOT</th>
+          <th>pullrequest URL</th>
+          <th>PR ID</th>
+          <th>created time</th>
+          <th>screenshot</th>
         </tr>
       </thead>
       <tbody>
         {
           nests.map((nest, i) =>
             <tr key={i}>
-              <td>{nest.timeStamp}</td>
-              <td>{nest.PrURL}</td>
-              <td>{nest.SnapShot}</td>
+              <th>{nest[0].pr_url}</th>
+              <th>{nest[0].id}</th>
+              <th>{nest[0].created_time}</th>
+              <th> <img src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350" alt = "screenshot"/></th>
             </tr>
           )
         }
